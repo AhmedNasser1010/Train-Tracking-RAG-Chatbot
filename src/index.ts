@@ -1,5 +1,8 @@
 import { get } from 'node-fetch';
 
+// Public Hook
+// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://telegram-tracker-bot.ahmedn-coder.workers.dev/webhook
+
 interface Env {
   TELEGRAM_API: string
   BOT_ID: string
@@ -8,9 +11,11 @@ interface Env {
 
 export default {
 	async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+		console.log(req.body)
+
 		// utilites
 		async function sendMessage(chat_id: string, text: string) {
-		  const url = `${env.TELEGRAM_API}sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`;
+		  const url = `https://api.telegram.org/bot${env.TELEGRAM_API}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`;
 		  await fetch(url, { method: 'GET' });
 		}
 
@@ -21,11 +26,11 @@ export default {
 
       // Parse the incoming Telegram message
       if (update.message) {
-        const text = update.message.text;
+        // const text = update.message.text;
         const chat_id = update.message.chat.id;
+        const text = JSON.stringify(update, null, 2)
 
-        // Respond to the message (e.g., echo the message)
-        await sendMessage(chat_id, `You said: ${text}`);
+        await sendMessage(chat_id, text);
       }
 
       return new Response('OK');
