@@ -22,10 +22,7 @@ enabled = true
 # - https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 # Note: Use secrets to store sensitive data.
 # - https://developers.cloudflare.com/workers/configuration/secrets/
-[vars]
-TELEGRAM_API = "7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE"
-BOT_ID = "@TrainTracking1Bot"
-CHAT_ID = "@AhmedNasser999"
+# [vars]
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#workers-ai

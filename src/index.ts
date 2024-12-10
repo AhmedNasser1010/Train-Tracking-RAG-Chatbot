@@ -1,11 +1,13 @@
 // import { get } from 'node-fetch';
+import { setEnv, getEnvVar } from './config';
 import sendMessage from "./handlers/sendMessage";
 import generateTrainRecord from "./utilite/getTrainRecordUtilities/main";
 import { TelegramUpdate } from "./types/TelegramUpdate";
 import shareMyLocation from "./utilite/shareMyLocation";
+import { getAccessToken } from "./utilite/getAccessToken"
 
 // Public Hook
-// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://cadillac-persons-wanting-continuing.trycloudflare.com/webhook
+// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://capacity-cfr-drill-remind.trycloudflare.com/webhook
 
 // cloudflared tunnel --url http://localhost:8787
 // npm run dev
@@ -13,10 +15,14 @@ import shareMyLocation from "./utilite/shareMyLocation";
 export default {
   async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     console.log("Request");
+    setEnv(env);
+    console.log(getEnvVar('OWNER_ID'));
     const url = new URL(req.url);
 
     if (url.pathname === `/webhook`) {
       const update: TelegramUpdate = await req.json();
+      const accessToken = getAccessToken();
+      console.log('accessToken: ', accessToken);
 
       if (update.message) {
         // const text = JSON.stringify(update, null, 2);

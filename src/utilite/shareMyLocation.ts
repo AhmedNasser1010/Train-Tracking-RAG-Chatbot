@@ -24,7 +24,7 @@ export default async function shareMyLocation(env: Env, update: TelegramUpdate) 
   await sendMessage(env, chat_id, `
   ${generateTrainHashtag(trainNumber)}
   
-
+  x
 
   ${current()}
 
