@@ -14,11 +14,11 @@
     "@cloudflare/workers-types": "^4.20241112.0",
     "@types/node": "^22.10.1",
     "typescript": "^5.5.2",
-    "vitest": "2.0.5",
-    "wrangler": "^3.60.3"
+    "vitest": "2.0.5"
   },
   "dependencies": {
     "@types/node-fetch": "^2.6.12",
+    "jose": "^5.9.6",
     "node-fetch": "^3.3.2"
   }
 }
