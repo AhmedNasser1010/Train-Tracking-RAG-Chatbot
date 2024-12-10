@@ -17,6 +17,7 @@
     "vitest": "2.0.5"
   },
   "dependencies": {
+    "@sagi.io/workers-jwt": "^0.0.26",
     "@types/node-fetch": "^2.6.12",
     "jose": "^5.9.6",
     "node-fetch": "^3.3.2"

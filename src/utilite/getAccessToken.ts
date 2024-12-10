@@ -1,4 +1,5 @@
-import { getEnvVar } from './config.js';
+import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt'
+import { getEnvVar } from '../config';
 
 export async function getAccessToken() {
   const jwtToken = await getTokenFromGCPServiceAccount({
