@@ -1,4 +1,4 @@
-import sendMessage from "../handlers/sendMessage";
+import sendMessage from "../handlers/telegram/sendMessage";
 import { TelegramUpdate } from "../types/TelegramUpdate";
 
 const generateTrainHashtag = (number: string) => {

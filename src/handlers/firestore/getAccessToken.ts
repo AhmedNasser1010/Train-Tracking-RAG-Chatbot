@@ -1,8 +1,10 @@
 import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt'
-import { getEnvVar } from '../config';
+import { getEnvVar } from '../../config';
+import { JwtToken } from '../../types/JwtToken';
+import { FirebaseAccessTokenResponse } from '../../types/FirebaseAccessTokenResponse';
 
-export async function getAccessToken() {
-  const jwtToken = await getTokenFromGCPServiceAccount({
+export async function getAccessToken(): Promise<FirebaseAccessTokenResponse> {
+  const jwtTokenData: JwtToken = {
     serviceAccountJSON: {
       type: 'service_account',
       project_id: getEnvVar('PROJECT_ID'),
@@ -17,17 +19,12 @@ export async function getAccessToken() {
     },
     aud: 'https://oauth2.googleapis.com/token',
     payloadAdditions: {
-      scope: [
-        // scope required for firestore
-        'https://www.googleapis.com/auth/datastore',
-        // The following scopes are required only for realtime database
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/firebase.database',
-      ].join(' '),
+      scope: 'https://www.googleapis.com/auth/datastore',
     },
-  })
+  };
+  const jwtToken = await getTokenFromGCPServiceAccount(jwtTokenData)
 
-  const accessToken = await (
+  const accessToken: FirebaseAccessTokenResponse = await (
     await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
       headers: {
@@ -35,10 +32,10 @@ export async function getAccessToken() {
       },
       body: new URLSearchParams({
         grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-        assertion: jwtToken, // the JWT token generated in the previous step
+        assertion: jwtToken,
       }),
     })
-  ).json()
+  ).json();
 
-  return accessToken
+  return accessToken;
 }

@@ -1,13 +1,12 @@
-// import { get } from 'node-fetch';
 import { setEnv } from './config';
-import sendMessage from "./handlers/sendMessage";
+import sendMessage from "./handlers/telegram/sendMessage";
 import generateTrainRecord from "./utilite/getTrainRecordUtilities/main";
 import { TelegramUpdate } from "./types/TelegramUpdate";
 import shareMyLocation from "./utilite/shareMyLocation";
-import { getCollection } from "./handlers/firestore/getAllCollections"
+import { getCollection } from "./handlers/firestore/getCollection"
 
 // Public Hook
-// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://correlation-separate-attorneys-operational.trycloudflare.com/webhook
+// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://surgeons-essex-preference-alot.trycloudflare.com/webhook
 
 // cloudflared tunnel --url http://localhost:8787
 // npm run dev
@@ -21,22 +20,18 @@ export default {
     if (url.pathname === `/webhook`) {
       const update: TelegramUpdate = await req.json();
 
-      console.log('get data..c')
-      const data = await getCollection();
-      console.log('data: ', data.documents[0].fields);
-
       if (update.message) {
         // const text = JSON.stringify(update, null, 2);
         const chat_id = update.message.chat.id;
         const text = update.message.text;
 
-        if (text.split(' ')[0] === '/me') {
+        if (text.split(' ')[0] === 'me') {
           console.log("Trigger /me")
           await shareMyLocation(env, update);
           return new Response('OK');
         }
 
-        generateTrainRecord(update)
+        // generateTrainRecord(update)
         await sendMessage(env, chat_id, text);
       }
 

@@ -17,6 +17,6 @@ export function setEnv(env: Env) {
 }
 
 // Get a specific variable
-export function getEnvVar(key: keyof Env): string | undefined {
-  return envVars[key];
+export function getEnvVar(key: keyof Env): string {
+  return envVars[key] ?? '';
 }
