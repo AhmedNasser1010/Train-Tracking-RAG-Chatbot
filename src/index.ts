@@ -6,7 +6,7 @@ import shareMyLocation from "./utilite/shareMyLocation";
 import { getCollection } from "./handlers/firestore/getCollection"
 
 // Public Hook
-// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://surgeons-essex-preference-alot.trycloudflare.com/webhook
+// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://respondents-wb-humanity-watson.trycloudflare.com/webhook
 
 // cloudflared tunnel --url http://localhost:8787
 // npm run dev
