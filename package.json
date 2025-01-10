@@ -11,13 +11,15 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.2",
-    "@cloudflare/workers-types": "^4.20241112.0",
+    "@cloudflare/workers-types": "^4.20250109.0",
     "@types/node": "^22.10.1",
     "typescript": "^5.5.2",
     "vitest": "2.0.5"
   },
   "dependencies": {
     "@sagi.io/workers-jwt": "^0.0.26",
-    "jose": "^5.9.6"
+    "hono": "^4.6.16",
+    "jose": "^5.9.6",
+    "langchain": "^0.3.10"
   }
 }

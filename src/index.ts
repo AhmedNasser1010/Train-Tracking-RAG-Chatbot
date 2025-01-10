@@ -1,43 +1,38 @@
-import { setEnv } from './config';
-import sendMessage from "./handlers/telegram/sendMessage";
-import generateTrainRecord from "./utilite/getTrainRecordUtilities/main";
-import { TelegramUpdate } from "./types/TelegramUpdate";
-import shareMyLocation from "./utilite/shareMyLocation";
-import { getCollection } from "./handlers/firestore/getCollection"
+import { Hono } from 'hono'
+import promptJson from './prompts.json'
+import sendMessage from './handlers/telegram/sendMessage'
+import { type TelegramUpdate } from './types/TelegramUpdate'
+const app = new Hono()
 
 // Public Hook
-// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://respondents-wb-humanity-watson.trycloudflare.com/webhook
+// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://survivor-speaker-tribal-testament.trycloudflare.com/webhook
 
 // cloudflared tunnel --url http://localhost:8787
 // npm run dev
 
-export default {
-  async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-    console.log("Request");
-    setEnv(env);
-    const url = new URL(req.url);
+let history = [];
 
-    if (url.pathname === `/webhook`) {
-      const update: TelegramUpdate = await req.json();
+app.post('/webhook', async (c) => {
+	const update: TelegramUpdate = await c.req.json()
+	const chat_id = update.message.chat.id
+	const text = update.message.text
 
-      if (update.message) {
-        // const text = JSON.stringify(update, null, 2);
-        const chat_id = update.message.chat.id;
-        const text = update.message.text;
+	const answer = await c.env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
+		messages: [
+			{ role: 'system', content: promptJson.systemPrompt },
+			...promptJson.fewShotPrompts,
+			...history,
+			{ role: 'user', content: text }
+		],
+		// temperature: 0, // default 0.6 min 0 max 5
+		// top_k: 1 // min 1 max 50
+	});
 
-        if (text.split(' ')[0] === 'me') {
-          console.log("Trigger /me")
-          await shareMyLocation(env, update);
-          return new Response('OK');
-        }
+	await sendMessage(c.env, chat_id, answer.response);
+	history.push({ role: 'user', content: text });
+	history.push({ role: 'assistant', content: answer.response });
 
-        // generateTrainRecord(update)
-        await sendMessage(env, chat_id, text);
-      }
+	return c.json("Done", 200);
+})
 
-      return new Response('OK');
-    }
-
-    return new Response('Not Found', { status: 404 });
-  },
-} satisfies ExportedHandler<Env>;
+export default app
