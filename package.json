@@ -17,9 +17,9 @@
     "vitest": "2.0.5"
   },
   "dependencies": {
+    "@cloudflare/ai-utils": "^1.0.1",
     "@sagi.io/workers-jwt": "^0.0.26",
     "hono": "^4.6.16",
-    "jose": "^5.9.6",
-    "langchain": "^0.3.10"
+    "node-sql-parser": "^5.3.6"
   }
 }
