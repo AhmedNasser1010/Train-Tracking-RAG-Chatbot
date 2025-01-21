@@ -22,6 +22,7 @@
     "@sagi.io/workers-jwt": "^0.0.26",
     "@supabase/supabase-js": "^2.48.0",
     "hono": "^4.6.16",
-    "node-sql-parser": "^5.3.6"
+    "node-sql-parser": "^5.3.6",
+    "postgres": "^3.4.5"
   }
 }

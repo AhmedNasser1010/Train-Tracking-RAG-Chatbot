@@ -10,7 +10,7 @@ interface Env {
 	PROJECT_ID: string;
 	PRIVATE_KEY_ID: string;
 	PRIVATE_KEY: string;
-	SUPABASE_URL: string;
-	SUPABASE_KEY: string;
+	SUPABASE_USER: string;
+	SUPABASE_DB_PASSWORD: string;
 	AI: Ai;
 }
