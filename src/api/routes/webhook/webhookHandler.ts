@@ -1,4 +1,5 @@
 import textToSqlModel from "../../../utilities/models/textToSqlModel";
+import dataToTextModel from "../../../utilities/models/dataToTextModel";
 import { sqlParser } from "../../../utilities/sqlParser";
 import { sqlFirewall } from "../../../utilities/sqlFirewall";
 import { executeSql } from "../../../utilities/executeSql";
@@ -38,7 +39,10 @@ export const webhookHandler = async (c: any) => {
 		const executeResult = await executeSql(c, textToSqlAnswer);
 	  console.log("PASSED: read data from database");
 
-		console.log(executeResult)
+		// Data-to-Text model
+		const answer = await dataToTextModel(c, text, executeResult);
+
+		console.log('answer: ', answer);
 		
 		// Push to the chat history
 	  // pushHistory(text, textToSqlAnswer);
