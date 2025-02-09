@@ -1,4 +1,4 @@
-# Train Tracking RAG App
+# Train Tracking RAG Chatbot
 
 ## Table of content
 1. [Overview](#overview)
