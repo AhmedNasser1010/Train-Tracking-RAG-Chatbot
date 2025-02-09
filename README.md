@@ -1,4 +1,5 @@
 # Train Tracking RAG Chatbot
+[**On going tests on the chatbot**](/prompting-tests)
 
 ## Table of content
 1. [Overview](#overview)
