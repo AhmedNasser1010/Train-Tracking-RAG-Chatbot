@@ -42,6 +42,7 @@ Natural language → SQL → Database → Natural language response
 
 
 ## Models history management
+![Diagram of models history management](/images/models-history-management.png)
 
 ## Database schema/definition
 
