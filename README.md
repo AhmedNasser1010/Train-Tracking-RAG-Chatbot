@@ -10,7 +10,7 @@
 7. [Database schema/definition](#database-schema/definition)
 
 ## Overview
-The Train Tracking RAG App is an AI-powered chatbot that helps users find train schedules, check delays, and get station details. It uses machine learning to turn user questions into database searches and provide accurate answers.
+The Train Tracking RAG Chatbot is an AI-powered chatbot that helps users find train schedules, check delays, and get station details. It uses machine learning to turn user questions into database searches and provide accurate answers.
 
 ## Technical issues
 1. Cloudflare worker AI API error `undefined: undefined`.
