@@ -19,7 +19,7 @@ async function textToSqlModel(c: any, text: string, textToSqlAnswer: null | stri
 					content: promptJson.systemPrompt,
 				},
 				...promptJson.fewShotPrompts,
-				...history,
+				// ...history,
 				{
 					role: 'user',
 					content: userPrompt,

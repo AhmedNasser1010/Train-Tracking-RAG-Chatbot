@@ -10,12 +10,14 @@ import {
 import jsonToCsv from "../../../utilities/jsonToCsv";
 import isTrainScheduleViewTable from "../../../utilities/isTrainScheduleViewTable";
 import delay from "../../../utilities/delay";
+import sendMessage from '../../../utilities/telegram/sendMessage';
 
 export const webhookHandler = async (c: any) => {
 	const dataToTextHistory = getDataToTextHistory();
 	try {
 	  const update = await c.req.json();
 	  const text: string = update.message.text;
+	  const chatId = update.message.chat.id;
 	  console.log("PASSED: get user text");
 
 	  // Faild attepts loop
@@ -27,7 +29,6 @@ export const webhookHandler = async (c: any) => {
 	  do {
 			// Text-to-SQL model
 		  textToSqlAnswer = await textToSqlModel(c, text, textToSqlAnswer, errorFeedback);
-		  console.log("PASSED: text-to-sql");
 
 		  if (!textToSqlAnswer.isError) {
 				// SQL query parser
@@ -47,46 +48,49 @@ export const webhookHandler = async (c: any) => {
 		  	break;
 		  }
 		  
-			console.log("ATTEPTS: ", attepts);
 	  	attepts++
 	  	await delay(2000);
 	  } while(attepts <= maxAttepts);
-		 
-		console.log("PASSED: sql parser");
 
 		// Read data from database
 		const executeResult = await executeSql(c, textToSqlAnswer.answer);
-	  console.log("PASSED: read data from database");
 
 	  // Format & beautification result
 	  const formatedResult = isTrainScheduleViewTable(executeResult) ? jsonToCsv(executeResult) : executeResult
-	  console.log("PASSED: Format & beautification result")
 
 		// Data-to-Text model
-		const answer = await dataToTextModel({c, text, query: textToSqlAnswer.answer, executeResult});
+		const answer = await dataToTextModel({c, text, data: formatedResult});
 		
 		// Push to text-to-sql history
 	  pushToTextToSQLHistory(text, textToSqlAnswer.answer);
-	  console.log("PASSED: Push text to SQL history");
 
 	  // Push to data-to-text history
 	  pushToDataToTextHistory(text, answer);
-	  console.log("PASSED: Push data ro text history");
 
 	  console.log(
 	  	"GENERATE: Answer report:\n==========\n",
-	  	{
+	  	JSON.stringify({
 	  		user: text,
 	  		sql: textToSqlAnswer.answer,
 	  		jsonData: executeResult,
 	  		csvData: formatedResult,
 	  		answer,
 	  		attepts
-	  	},
+	  	}),
 	  	"\n==========\n"
 	  );
 
-	  return c.json(`${(dataToTextHistory.length / 5 + 1).toFixed(0)}: ${JSON.stringify(answer)}`, 200);
+	  const regex = /<\/think>\s*(.*)/s;
+	  const match = answer.match(regex);
+
+	  if (match && match[1]) {
+		  const message = match[1];
+		  await sendMessage(c.env, chatId, message);
+		  return c.json(`${(dataToTextHistory.length / 5 + 1).toFixed(0)}: ${message}`, 200);
+		} else {
+			throw "No message found after </think>"
+		}
+
 	} catch(err) {
 		console.error('Catch Err `webhookHandler.ts`: ', err)
 		return c.json("Internal Server Error.", 200);

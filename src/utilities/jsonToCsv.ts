@@ -1,7 +1,7 @@
 export default function jsonToCsv(jsonData: string): string {
 	const csvRows = [];
 
-	const headers = ['Train Number', 'Train Type', 'Stop Points', 'Arrival Times'];
+	const headers = ['Train Number', 'Train Type', 'Stop Points', 'Stops At']; // Arrival Times
 	csvRows.push(headers.join(','));
 
 	jsonData.forEach(train => {

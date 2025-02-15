@@ -9,6 +9,7 @@
 5. [Process flowchart](#process-flowchart)
 6. [Models history management](#models-history-management)
 7. [Database schema/definition](#database-schema/definition)
+8. [Topics](#topics)
 
 ## Overview
 The Train Tracking RAG Chatbot is an AI-powered chatbot that helps users find train schedules, check delays, and get station details. It uses machine learning to turn user questions into database searches and provide accurate answers.
@@ -126,3 +127,5 @@ GROUP BY
     t.train_number,
     ty.type_name;
 ```
+## Topics
+- [Compare Between Prompting in Ar Vs En](/documents/Compare-Between-Prompting-in-Ar-Vs-En.md)

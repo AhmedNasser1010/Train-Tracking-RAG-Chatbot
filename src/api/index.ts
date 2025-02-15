@@ -4,7 +4,7 @@ import { webhookHandler } from "./routes/webhook/webhookHandler"
 
 
 // Public Hook
-// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://picked-themselves-alternative-milan.trycloudflare.com/webhook
+// https://api.telegram.org/bot7817484472:AAHsg-cQC8U5WwHP0o4h4jefHI_t2wEDGlE/setWebHook?url=https://angel-weighted-integrate-ghz.trycloudflare.com/webhook
 
 // cloudflared tunnel --url http://localhost:8787
 // npm run dev
