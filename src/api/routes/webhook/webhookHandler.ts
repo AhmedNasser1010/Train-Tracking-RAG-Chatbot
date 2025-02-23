@@ -18,7 +18,6 @@ export const webhookHandler = async (c: any) => {
 	  const update = await c.req.json();
 	  const text: string = update.message.text;
 	  const chatId = update.message.chat.id;
-	  console.log("PASSED: get user text");
 
 	  // Faild attepts loop
 	  const maxAttepts = 3;

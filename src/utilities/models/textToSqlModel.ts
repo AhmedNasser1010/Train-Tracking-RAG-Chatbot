@@ -9,7 +9,6 @@ async function textToSqlModel(c: any, text: string, textToSqlAnswer: null | stri
 		const llama8b = '@cf/meta/llama-3.1-8b-instruct-fast';
 		const deepseek = '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b';
 
-		// const formatedFeedback = `There is error in the SQL!\nUser Text: ${text}\nThe Incorrect SQL: ${textToSqlAnswer}\nError Message: ${errorFeedback}`;
 		const userPrompt = errorFeedback ? errorFeedback : text;
 
 		const { response: answer } = await c.env.AI.run(llama8b, {
