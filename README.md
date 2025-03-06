@@ -30,6 +30,12 @@ The Train Tracking RAG Chatbot is an AI-powered chatbot that helps users find tr
 	cd chat-with-ai
 	npm run chat
 	```
+3. Preview local project with cloudflare tunnel (optional).
+	```bash
+ 	cloudflared tunnel --url http://localhost:8787
+ 	curl "https://api.telegram.org/bot{bot_token}/setWebhook?url={tunnal_link}"
+ 	```
+ 
 ## Features
 1. Reply to user inquiries
 2. Follow up on delays
