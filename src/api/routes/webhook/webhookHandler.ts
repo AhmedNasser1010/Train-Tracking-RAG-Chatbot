@@ -25,11 +25,6 @@ export const webhookHandler = async (c: any) => {
 		const messageId = update.message.message_id;
 		const chatType = update.message.chat.type;
 
-		// Exit if not group message
-		if (chatType !== 'group') {
-			return c.json("Only allowed to interact with the bot in group.", 404);
-		}
-
 		// Faild attepts loop
 		const textToSQLMaxAttepts = 3;
 		let textToSQLAttepts = 0;
