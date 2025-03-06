@@ -11,14 +11,14 @@ async function textToSqlModel(c: any, text: string, textToSqlAnswer: null | stri
 
 		const userPrompt = errorFeedback ? errorFeedback : text;
 
-		const { response: answer } = await c.env.AI.run(llama8b, {
+		const { response: answer } = await c.env.AI.run(deepseek, {
 			messages: [
 				{
 					role: 'system',
-					content: promptJson.systemPrompt,
+					content: promptJson.systemPromptNew,
 				},
 				...promptJson.fewShotPrompts,
-				// ...history,
+				...history,
 				{
 					role: 'user',
 					content: userPrompt,
@@ -27,7 +27,7 @@ async function textToSqlModel(c: any, text: string, textToSqlAnswer: null | stri
 			// temperature: 0.2, // default 0.6 min 0 max 5 Recommended 0.2 - 0.5
 			// top_k: 10, // min 1 max 50 Recommended 10 - 50
 			// top_p: 0.9, // min 0 max 2 Recommended 0.9
-			// max_tokens: 150, // default 256 Recommended 100 - 200
+			max_tokens: 5000, // default 256 Recommended 100 - 200
 			// frequency_penalty: 0.3, // min 0 max 2 Recommended 0.0 - 0.5
 			// repetition_penalty: 0.3 // min 0 max 2 Recommended 0.0 - 0.5
 		});
@@ -42,7 +42,7 @@ async function textToSqlModel(c: any, text: string, textToSqlAnswer: null | stri
 			isError: true,
 			error,
 			answer: null
-		}
+		};
 	}
 }
 

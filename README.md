@@ -15,10 +15,10 @@
 The Train Tracking RAG Chatbot is an AI-powered chatbot that helps users find train schedules, check delays, and get station details. It uses machine learning to turn user questions into database searches and provide accurate answers.
 
 ## Technical issues
-1. Cloudflare worker AI API error `undefined: undefined`.
+1. Cloudflare worker AI API error `undefined: undefined` (suddenly fixed by Cloudflare).
 2. Unstable Text-to-SQL model response.
-3. Unstable Data-to-Text model response.
-4. Errors in train schedule database data.
+3. Unstable Data-to-Text model response (Improved by add data simulating function + Arabic systemPrompt).
+4. Errors in train schedule database data (Fixed).
 
 ## Start development server
 1. Start the wrangler worker development server.

@@ -1,4 +1,4 @@
-export default function jsonToCsv(jsonData: string): string {
+export default function trainScheduleDataToCSV(jsonData: string): string {
 	const csvRows = [];
 
 	const headers = ['Train Number', 'Train Type', 'Stop Points', 'Stops At']; // Arrival Times

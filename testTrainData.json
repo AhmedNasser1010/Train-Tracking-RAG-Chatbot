@@ -1,0 +1,413 @@
+[
+  {
+    "train_number": "1109",
+    "train_type": "AC Russian",
+    "stop_points": [
+      "Faiyum",     "Wasta",
+      "Ayat",       "Giza",
+      "Cairo",      "Banha",
+      "Quesna",     "Berket Saba",
+      "Tanta",      "Itay Barud",
+      "Damanhour",  "Sidi Gaber",
+      "Alexandria"
+    ],
+    "arrival_time": [
+      "05:50 am", "06:54 am",
+      "07:20 am", "08:01 am",
+      "08:20 am", "09:15 am",
+      "09:28 am", "09:54 am",
+      "10:11 am", "10:49 am",
+      "11:14 am", "12:00 pm",
+      "12:10 pm"
+    ]
+  },
+  {
+    "train_number": "1111",
+    "train_type": "Russian",
+    "stop_points": [ "Faiyum", "Wasta", "Ayat", "Giza", "Cairo" ],
+    "arrival_time": [ "12:50 pm", "01:39 pm", "02:05 pm", "02:49 pm", "03:15 pm" ]
+  },
+  {
+    "train_number": "135",
+    "train_type": "Improved",
+    "stop_points": [ "Wasta", "Ayat", "Badrshein", "Hawamdeyya", "Giza" ],
+    "arrival_time": [ "04:35 am", "05:00 am", "05:23 am", "05:31 am", "05:55 am" ]
+  },
+  {
+    "train_number": "141",
+    "train_type": "Russian",
+    "stop_points": [
+      "Faiyum",     "Amereyat Fayoum",
+      "Edwah",      "Sila",
+      "Nasiriyah",  "Rous",
+      "werash",     "Kom Abo Rady",
+      "Wasta",      "Atwab",
+      "Raqqah",     "Qotouri",
+      "Kafr Ammar", "Mit Qayed",
+      "Matanyah",   "Ayat",
+      "Blida",      "Mazghounah",
+      "Maraziq",    "Badrshein",
+      "Hawamdeyya", "Giza",
+      "Cairo"
+    ],
+    "arrival_time": [
+      "04:30 am", "04:35 am", "04:40 am",
+      "04:48 am", "04:54 am", "05:04 am",
+      "05:06 am", "05:11 am", "05:44 am",
+      "05:50 am", "05:54 am", "06:00 am",
+      "06:06 am", "06:11 am", "06:16 am",
+      "06:24 am", "06:32 am", "06:40 am",
+      "06:49 am", "06:55 am", "07:01 am",
+      "07:22 am", "07:45 am"
+    ]
+  },
+  {
+    "train_number": "143",
+    "train_type": "Improved",
+    "stop_points": [
+      "Faiyum",     "Amereyat Fayoum",
+      "Edwah",      "Sila",
+      "Nasiriyah",  "Rous",
+      "werash",     "Kom Abo Rady",
+      "Wasta",      "Atwab",
+      "Raqqah",     "Qotouri",
+      "Kafr Ammar", "Mit Qayed",
+      "Matanyah",   "Ayat",
+      "Mazghounah", "Maraziq",
+      "Badrshein",  "Hawamdeyya",
+      "Giza"
+    ],
+    "arrival_time": [
+      "07:30 am", "07:35 am",
+      "07:40 am", "07:49 am",
+      "07:55 am", "08:09 am",
+      "08:14 am", "08:19 am",
+      "08:27 am", "08:50 am",
+      "08:54 am", "09:00 am",
+      "09:06 am", "09:11 am",
+      "09:16 am", "09:23 am",
+      "09:36 am", "09:45 am",
+      "09:51 am", "09:57 am",
+      "10:15 am"
+    ]
+  },
+  {
+    "train_number": "159",
+    "train_type": "AC Russian",
+    "stop_points": [
+      "Luxor",      "Qus",        "Qift",
+      "Qena",       "Dishna",     "Nagaa Hammadi",
+      "Farshut",    "Abo Tesht",  "Balyana",
+      "Girga",      "Usayrat",    "Monshaa",
+      "Sohag",      "Maragha",    "Tahta",
+      "Tima",       "Sidfa",      "Abo Tij",
+      "Asyut",      "Manfalut",   "Qusiyyah",
+      "Dayrout",    "Dayr Mawas", "Mallawi",
+      "Abo Qurqas", "Minya",      "Samalut",
+      "Matay",      "Beni Mazar", "Maghagha",
+      "Beni Suef",  "Wasta",      "Ayat",
+      "Badrshein",  "Hawamdeyya", "Giza",
+      "Cairo"
+    ],
+    "arrival_time": [
+      "06:00 am", "06:28 am", "06:41 am",
+      "07:04 am", "07:31 am", "07:59 am",
+      "08:13 am", "08:24 am", "08:44 am",
+      "09:02 am", "09:13 am", "09:24 am",
+      "09:40 am", "10:01 am", "10:18 am",
+      "10:34 am", "10:43 am", "10:56 am",
+      "11:29 am", "11:59 am", "12:34 pm",
+      "12:51 pm", "01:03 pm", "01:17 pm",
+      "01:42 pm", "02:14 pm", "02:36 pm",
+      "03:09 pm", "03:39 pm", "03:55 pm",
+      "04:41 pm", "05:11 pm", "05:39 pm",
+      "05:59 pm", "06:06 pm", "06:27 pm",
+      "06:50 pm"
+    ]
+  },
+  {
+    "train_number": "165",
+    "train_type": "Russian",
+    "stop_points": [
+      "Asyut",      "Manqabad",   "Manfalut",
+      "Qusiyyah",   "Dayrout",    "Dayr Mawas",
+      "Mallawi",    "Rawda",      "Abo Qurqas",
+      "Minya",      "Damaris",    "Samalut",
+      "Matay",      "Beni Mazar", "Maghagha",
+      "Fashn",      "Biba",       "Beni Suef",
+      "Nasser",     "Wasta",      "Raqqah",
+      "Kafr Ammar", "Ayat",       "Mazghounah",
+      "Badrshein",  "Hawamdeyya", "Giza",
+      "Cairo"
+    ],
+    "arrival_time": [
+      "06:00 am", "06:13 am", "06:33 am",
+      "06:52 am", "07:07 am", "07:18 am",
+      "07:49 am", "08:02 am", "08:17 am",
+      "08:40 am", "08:58 am", "09:13 am",
+      "09:29 am", "09:39 am", "09:56 am",
+      "10:13 am", "10:30 am", "11:11 am",
+      "11:22 am", "11:47 am", "12:10 pm",
+      "12:21 pm", "12:35 pm", "12:50 pm",
+      "01:02 pm", "01:10 pm", "01:39 pm",
+      "02:05 pm"
+    ]
+  },
+  {
+    "train_number": "185",
+    "train_type": "AC Russian",
+    "stop_points": [
+      "Sohag",         "Maragha",    "Tahta",
+      "Tima",          "Sidfa",      "Abo Tij",
+      "Asyut",         "Mallawi",    "Abo Qurqas",
+      "Minya",         "Samalut",    "Matay",
+      "Beni Mazar",    "Maghagha",   "Fashn",
+      "Biba",          "Beni Suef",  "Nasser",
+      "Wasta",         "Ayat",       "Giza",
+      "Cairo",         "Banha",      "Menyet Qamh",
+      "Zagazig",       "Abo Hammad", "Tal Kabeer",
+      "Qassasin",      "Abo Swer",   "Ismailia",
+      "Qantara Gharb", "Port Said"
+    ],
+    "arrival_time": [
+      "12:05 am", "12:19 am", "12:35 am",
+      "12:51 am", "01:34 am", "01:46 am",
+      "02:10 am", "03:31 am", "03:55 am",
+      "04:20 am", "04:46 am", "05:00 am",
+      "05:10 am", "05:25 am", "05:42 am",
+      "06:14 am", "06:34 am", "06:46 am",
+      "07:07 am", "07:35 am", "08:15 am",
+      "08:45 am", "09:50 am", "10:09 am",
+      "10:32 am", "10:53 am", "11:05 am",
+      "11:20 am", "11:37 am", "11:56 am",
+      "12:24 pm", "01:05 pm"
+    ]
+  },
+  {
+    "train_number": "187",
+    "train_type": "Russian",
+    "stop_points": [
+      "The High Dam",  "Sadaka",     "Kima",
+      "Sheikh Haroun", "Aswan",      "Daraw",
+      "Kom Ombo",      "Kalabsha",   "Silwa Bahari",
+      "Edfu",          "Mahamid",    "Sibaiyyah",
+      "Sharawnah",     "Esna",       "Armant",
+      "Luxor",         "Qus",        "Qift",
+      "Qena",          "Dishna",     "Nagaa Hammadi",
+      "Farshut",       "Abo Tesht",  "Balyana",
+      "Girga",         "Usayrat",    "Monshaa",
+      "Sohag",         "Maragha",    "Tahta",
+      "Tima",          "Sidfa",      "Abo Tij",
+      "Asyut",         "Dayrout",    "Dayr Mawas",
+      "Mallawi",       "Abo Qurqas", "Minya",
+      "Maghagha",      "Fashn",      "Beni Suef",
+      "Wasta",         "Ayat",       "Giza",
+      "Cairo"
+    ],
+    "arrival_time": [
+      "05:30 pm", "05:45 pm", "05:49 pm", "05:55 pm",
+      "06:19 pm", "06:54 pm", "07:05 pm", "07:22 pm",
+      "07:36 pm", "08:02 pm", "08:22 pm", "08:37 pm",
+      "08:43 pm", "09:00 pm", "09:44 pm", "10:05 pm",
+      "10:43 pm", "10:56 pm", "11:15 pm", "11:55 pm",
+      "12:29 am", "12:43 am", "12:54 am", "01:14 am",
+      "01:33 am", "01:44 am", "01:54 am", "02:05 am",
+      "02:31 am", "02:48 am", "03:15 am", "03:34 am",
+      "03:46 am", "04:20 am", "05:42 am", "05:53 am",
+      "06:06 am", "06:32 am", "06:59 am", "07:49 am",
+      "08:07 am", "08:41 am", "09:11 am", "09:40 am",
+      "10:24 am", "10:50 am"
+    ]
+  },
+  {
+    "train_number": "3503",
+    "train_type": "AC Russian",
+    "stop_points": [
+      "Asyut",      "Manfalut",
+      "Qusiyyah",   "Dayr Mawas",
+      "Abo Qurqas", "Minya",
+      "Samalut",    "Matay",
+      "Beni Mazar", "Maghagha",
+      "Fashn",      "Biba",
+      "Beni Suef",  "Wasta",
+      "Ayat",       "Giza",
+      "Cairo"
+    ],
+    "arrival_time": [
+      "12:15 pm", "12:44 pm",
+      "01:03 pm", "01:25 pm",
+      "01:53 pm", "02:15 pm",
+      "02:45 pm", "03:15 pm",
+      "03:41 pm", "03:55 pm",
+      "04:15 pm", "04:34 pm",
+      "04:53 pm", "05:24 pm",
+      "05:53 pm", "06:37 pm",
+      "07:00 pm"
+    ]
+  },
+  {
+    "train_number": "81",
+    "train_type": "AC Russian",
+    "stop_points": [
+      "Aswan",    "Ballana",      "Daraw",       "Kom Ombo",
+      "Kalabsha", "Silwa Bahari", "Ramadi",      "Radisia",
+      "Edfu",     "Mahamid",      "Sibaiyyah",   "Sharawnah",
+      "Esna",     "Armant",       "Luxor",       "Qus",
+      "Qift",     "Qena",         "Dishna",      "Nagaa Hammadi",
+      "Farshut",  "Abo Tesht",    "Abo Shousha", "Balyana",
+      "Bardis",   "Girga",        "Usayrat",     "Monshaa",
+      "Sohag",    "Maragha",      "Tahta",       "Tima",
+      "Sidfa",    "Abo Tij",      "Asyut",       "Manqabad",
+      "Manfalut", "Qusiyyah",     "Dayrout",     "Dayr Mawas",
+      "Mallawi",  "Rawda",        "Abo Qurqas",  "Minya",
+      "Samalut",  "Matay",        "Beni Mazar",  "Maghagha",
+      "Fashn",    "Biba",         "Beni Suef",   "Nasser",
+      "Wasta",    "Ayat",         "Badrshein",   "Hawamdeyya",
+      "Giza",     "Cairo"
+    ],
+    "arrival_time": [
+      "04:30 am", "04:57 am", "05:06 am", "05:16 am",
+      "05:32 am", "05:44 am", "05:55 am", "06:06 am",
+      "06:18 am", "06:37 am", "06:53 am", "07:00 am",
+      "07:16 am", "07:44 am", "08:05 am", "08:42 am",
+      "09:21 am", "09:44 am", "10:10 am", "10:39 am",
+      "10:51 am", "11:02 am", "11:14 am", "11:26 am",
+      "11:36 am", "11:48 am", "11:58 am", "12:09 pm",
+      "12:25 pm", "12:48 pm", "01:04 pm", "01:21 pm",
+      "01:32 pm", "01:46 pm", "02:10 pm", "02:33 pm",
+      "03:16 pm", "03:36 pm", "03:52 pm", "04:03 pm",
+      "04:17 pm", "04:50 pm", "05:06 pm", "05:34 pm",
+      "05:56 pm", "06:11 pm", "06:21 pm", "06:38 pm",
+      "06:56 pm", "07:11 pm", "07:22 pm", "07:42 pm",
+      "08:24 pm", "08:52 pm", "09:13 pm", "09:32 pm",
+      "09:50 pm", "10:20 pm"
+    ]
+  },
+  {
+    "train_number": "833",
+    "train_type": "Russian",
+    "stop_points": [
+      "Aswan",     "Ballana",       "Daraw",
+      "Kom Ombo",  "Kalabsha",      "Silwa Bahari",
+      "Edfu",      "Mahamid",       "Sibaiyyah",
+      "Esna",      "Armant",        "Luxor",
+      "Qus",       "Qift",          "Qena",
+      "Dishna",    "Nagaa Hammadi", "Farshut",
+      "Abo Tesht", "Balyana",       "Bardis",
+      "Girga",     "Usayrat",       "Monshaa",
+      "Sohag",     "Maragha",       "Tahta",
+      "Tima",      "Sidfa",         "Abo Tij",
+      "Asyut",     "Manqabad",      "Manfalut",
+      "Qusiyyah",  "Dayrout",       "Dayr Mawas",
+      "Mallawi",   "Rawda",         "Abo Qurqas",
+      "Minya",     "Damaris",       "Samalut",
+      "Matay",     "Beni Mazar",    "Aba Wakf",
+      "Maghagha",  "Fashn",         "Biba",
+      "Beni Suef", "Nasser",        "Wasta",
+      "Ayat",      "Badrshein",     "Hawamdeyya",
+      "Giza",      "Cairo"
+    ],
+    "arrival_time": [
+      "12:10 am", "12:38 am", "12:49 am", "01:00 am",
+      "01:17 am", "01:31 am", "01:59 am", "02:19 am",
+      "02:36 am", "02:56 am", "03:24 am", "03:45 am",
+      "04:23 am", "04:36 am", "04:59 am", "05:26 am",
+      "05:53 am", "06:09 am", "06:19 am", "06:38 am",
+      "06:50 am", "07:02 am", "07:13 am", "07:24 am",
+      "07:35 am", "08:02 am", "08:19 am", "08:34 am",
+      "08:43 am", "08:56 am", "09:20 am", "09:43 am",
+      "10:05 am", "10:24 am", "10:40 am", "10:51 am",
+      "11:05 am", "11:17 am", "11:31 am", "12:29 pm",
+      "12:38 pm", "12:55 pm", "01:09 pm", "01:19 pm",
+      "01:28 pm", "01:39 pm", "01:57 pm", "02:14 pm",
+      "02:36 pm", "02:47 pm", "03:08 pm", "03:57 pm",
+      "04:19 pm", "04:26 pm", "04:49 pm", "05:15 pm"
+    ]
+  },
+  {
+    "train_number": "971",
+    "train_type": "AC",
+    "stop_points": [
+      "Sohag",      "Maragha",    "Tahta",
+      "Tima",       "Sidfa",      "Abo Tij",
+      "Asyut",      "Manfalut",   "Qusiyyah",
+      "Dayrout",    "Dayr Mawas", "Mallawi",
+      "Minya",      "Samalut",    "Matay",
+      "Beni Mazar", "Maghagha",   "Fashn",
+      "Biba",       "Beni Suef",  "Wasta",
+      "Ayat",       "Giza",       "Cairo"
+    ],
+    "arrival_time": [
+      "05:20 am", "05:26 am", "05:51 am",
+      "06:09 am", "06:19 am", "06:31 am",
+      "06:55 am", "07:34 am", "07:52 am",
+      "08:07 am", "08:17 am", "08:30 am",
+      "09:10 am", "09:25 am", "09:49 am",
+      "09:59 am", "10:14 am", "10:30 am",
+      "10:47 am", "11:06 am", "11:34 am",
+      "11:59 am", "12:41 pm", "01:05 pm"
+    ]
+  },
+  {
+    "train_number": "973",
+    "train_type": "Russian",
+    "stop_points": [
+      "Asyut",     "Manfalut",    "Qusiyyah",
+      "Dayrout",   "Dayr Mawas",  "Minya",
+      "Samalut",   "Matay",       "Beni Mazar",
+      "Maghagha",  "Fashn",       "Suds",
+      "Biba",      "Taha Bishah", "Tansa",
+      "Beni Suef", "Nasser",      "Zaytoun Q",
+      "Ashmant",   "Maymun",      "Beni Hidayr",
+      "Wasta",     "Qotouri",     "Ayat",
+      "Giza",      "Cairo"
+    ],
+    "arrival_time": [
+      "02:30 am", "02:59 am", "03:18 am",
+      "03:33 am", "03:43 am", "04:36 am",
+      "04:59 am", "05:13 am", "05:36 am",
+      "05:52 am", "06:09 am", "06:20 am",
+      "06:28 am", "06:34 am", "06:40 am",
+      "06:51 am", "07:04 am", "07:10 am",
+      "07:16 am", "07:22 am", "07:26 am",
+      "07:39 am", "07:53 am", "08:10 am",
+      "08:49 am", "09:15 am"
+    ]
+  },
+  {
+    "train_number": "975",
+    "train_type": "Russian",
+    "stop_points": [
+      "Luxor",      "Qus",           "Qena",
+      "Dishna",     "Nagaa Hammadi", "Farshut",
+      "Abo Tesht",  "Balyana",       "Girga",
+      "Monshaa",    "Sohag",         "Maragha",
+      "Tahta",      "Tima",          "Sidfa",
+      "Abo Tij",    "Asyut",         "Azhar University",
+      "Manqabad",   "Manfalut",      "Qusiyyah",
+      "Dayrout",    "Dayr Mawas",    "Mallawi",
+      "Rawda",      "Abo Qurqas",    "Minya",
+      "Damaris",    "Samalut",       "Matay",
+      "Beni Mazar", "Maghagha",      "Fashn",
+      "Biba",       "Beni Suef",     "Nasser",
+      "Ashmant",    "Wasta",         "Ayat",
+      "Giza",       "Cairo"
+    ],
+    "arrival_time": [
+      "08:00 am", "08:29 am", "08:59 am",
+      "09:25 am", "09:54 am", "10:07 am",
+      "10:14 am", "10:39 am", "11:00 am",
+      "11:19 am", "11:59 am", "12:18 pm",
+      "12:35 pm", "12:53 pm", "01:03 pm",
+      "01:16 pm", "01:40 pm", "01:58 pm",
+      "02:08 pm", "02:29 pm", "02:49 pm",
+      "03:05 pm", "03:17 pm", "03:49 pm",
+      "04:01 pm", "04:17 pm", "04:40 pm",
+      "04:54 pm", "05:12 pm", "05:27 pm",
+      "05:34 pm", "05:56 pm", "06:14 pm",
+      "06:32 pm", "06:52 pm", "07:02 pm",
+      "07:12 pm", "07:29 pm", "07:56 pm",
+      "08:39 pm", "09:05 pm"
+    ]
+  }
+]

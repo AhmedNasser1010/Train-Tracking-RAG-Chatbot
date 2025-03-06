@@ -52,6 +52,7 @@ async function sendTextToApi(apiUrl, text) {
       },
       body: JSON.stringify({
         message: {
+          message_id: 123456,
           chat: {
             id: "abc123",
           },

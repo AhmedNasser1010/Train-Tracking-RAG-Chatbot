@@ -1,18 +1,16 @@
 import promptJson from "../../prompts/data-to-text/prompts.json";
 import { getDataToTextHistory } from "../../api/index";
-import calcTime from "../../utilities/calcTime";
 
 type Props = {
 	c: any;
 	text: string;
 	data: any;
+	egyptTime: string;
 };
 
-async function dataToTextModel({ c, text, data }: Props) {
+async function dataToTextModel({ c, text, data, egyptTime }: Props) {
 	try {
 		const history = getDataToTextHistory();
-		const stringifyData = JSON.stringify(data);
-		const egyptTime: string = calcTime("+2");
 
 		const { response: answer } = await c.env.AI.run(
 			"@cf/deepseek-ai/deepseek-r1-distill-qwen-32b",
@@ -23,10 +21,10 @@ async function dataToTextModel({ c, text, data }: Props) {
 						content: promptJson.systemPrompt,
 					},
 					...promptJson.examplePrompts,
-					// ...history,
+					...history,
 					{
 						role: "user",
-						content: `Current Date: ${egyptTime}.\nCurrent Data: ${stringifyData}.\nUser Question: ${text}.`,
+						content: `الوقت الحالي: ${egyptTime}.\البيانات الحالية: ${data}.\nسؤال المستخدم: ${text}.`,
 					},
 				],
 				temperature: 0.3,
@@ -36,9 +34,17 @@ async function dataToTextModel({ c, text, data }: Props) {
 			}
 		);
 
-		return answer;
-	} catch (err) {
-		return err;
+		return {
+			isError: false,
+			error: null,
+			answer
+		};
+	} catch (error) {
+		return {
+			isError: true,
+			error,
+			answer: null
+		};
 	}
 }
 
