@@ -140,7 +140,7 @@ export const webhookHandler = async (c: any) => {
 			// Push to data-to-text history
 			pushToDataToTextHistory(text, dataToTextAfterTag);
 
-			await sendMessage(env, chatId, `${dataToTextAfterTag}\n\n${messageId}`);
+			await sendMessage(c.env, chatId, `${dataToTextAfterTag}\n\n${messageId}`);
 
 			return c.json(
 				`${(dataToTextHistory.length / 5 + 1).toFixed(0)}: ${dataToTextAfterTag}`,
