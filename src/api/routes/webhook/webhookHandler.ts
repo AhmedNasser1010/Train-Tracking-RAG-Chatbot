@@ -1,5 +1,5 @@
-import textToSqlModel from "../../../utilities/models/textToSqlModel";
-import dataToTextModel from "../../../utilities/models/dataToTextModel";
+import textToSqlModel from "../../../utilities/models/gpt20bTextToSqlModel";
+import dataToTextModel from "../../../utilities/models/gpt20bDataToTextModel";
 import { sqlParser } from "../../../utilities/sql/sqlParser";
 import { executeSql } from "../../../utilities/sql/executeSql";
 import {
@@ -16,9 +16,11 @@ import simulateTrainSchedule from "../../../utilities/simulateTrainSchedule";
 import calcTime from "../../../utilities/calcTime";
 
 export const webhookHandler = async (c: any) => {
+	console.log("START")
 	const dataToTextHistory = getDataToTextHistory();
 	try {
-		const egyptTime: string = calcTime("+2");
+		const egyptTime: string = calcTime("+3");
+		// const egyptTime: string = "5:40 AM";
 		const update = await c.req.json();
 		const text: string = update.message.text;
 		const chatId = update.message.chat.id;
@@ -26,7 +28,7 @@ export const webhookHandler = async (c: any) => {
 		const chatType = update.message.chat.type;
 
 		// Faild attepts loop
-		const textToSQLMaxAttepts = 3;
+		const textToSQLMaxAttepts = 0;
 		let textToSQLAttepts = 0;
 		let textToSqlAnswer = null;
 		let textToSqlAnswerAfterTag = null;
@@ -40,16 +42,14 @@ export const webhookHandler = async (c: any) => {
 				textToSqlAnswer,
 				errorFeedback,
 			);
-
-			if (textToSqlAnswer.answer) {
-				textToSqlAnswerAfterTag = afterThinkTagText(
-					textToSqlAnswer.answer,
-				).afterTag;
-			}
+			console.log("PASSED 1");
+			console.log(textToSqlAnswer)
 
 			if (!textToSqlAnswer.isError) {
 				// SQL query parser
-				parserResult = await sqlParser(c, textToSqlAnswerAfterTag, text);
+				parserResult = await sqlParser(c, textToSqlAnswer.answer, text);
+				console.log("PASSED 2");
+				console.log(textToSqlAnswer.answer)
 
 				// End if it is injection query
 				if (parserResult?.isInjection) {
@@ -70,7 +70,8 @@ export const webhookHandler = async (c: any) => {
 		} while (textToSQLAttepts <= textToSQLMaxAttepts);
 
 		// Read data from database
-		const executeResult = await executeSql(c, textToSqlAnswerAfterTag);
+		const executeResult = await executeSql(c, textToSqlAnswer.answer);
+		console.log("PASSED 3");
 
 		// Format & beautification result
 		let formatedResult = executeResult;
@@ -81,6 +82,7 @@ export const webhookHandler = async (c: any) => {
 		} else {
 			formatedResult = JSON.stringify(executeResult);
 		}
+		console.log("PASSED 4");
 
 		const dataToTextMaxAttepts = 3;
 		let dataToTextAttepts = 0;
@@ -94,61 +96,54 @@ export const webhookHandler = async (c: any) => {
 				data: formatedResult,
 				egyptTime,
 			});
+			console.log("PASSED 5");
+			console.log('dataToTextAnswer:')
+			console.log(dataToTextAnswer)
 
 			if (dataToTextAnswer !== null && dataToTextAnswer.isError === false) {
 				break;
 			}
 		} while (dataToTextMaxAttepts <= dataToTextAttepts);
 
-
-		const {
-			matched,
-			afterTag: dataToTextAfterTag,
-			error,
-		} = afterThinkTagText(dataToTextAnswer.answer);
-
-
-		if (matched) {
-			console.log(
-				"GENERATE: Answer report:\n==========\n",
-				JSON.stringify({
-					id: messageId,
-					user: update,
-					input: text,
-					timestamp: Date.now(),
-					models: {
-						textToSQL: {
-							...textToSqlAnswer,
-							attepts: textToSQLAttepts,
-						},
-						dataToSQL: {
-							...dataToTextAnswer,
-							attepts: dataToTextAttepts,
-						},
+		console.log(
+			"GENERATE: Answer report:\n==========\n",
+			JSON.stringify({
+				id: messageId,
+				user: update,
+				input: text,
+				timestamp: Date.now(),
+				models: {
+					textToSQL: {
+						...textToSqlAnswer,
+						attepts: textToSQLAttepts,
 					},
-					data: {
-						json: executeResult,
-						csv: formatedResult,
+					dataToSQL: {
+						...dataToTextAnswer,
+						attepts: dataToTextAttepts,
 					},
-				}),
-				"\n==========\n",
-			);
+				},
+				data: {
+					json: executeResult,
+					csv: formatedResult,
+				},
+			}),
+			"\n==========\n",
+		);
 			
-			// Push to text-to-sql history
-			pushToTextToSQLHistory(text, textToSqlAnswerAfterTag);
+		// Push to text-to-sql history
+		pushToTextToSQLHistory(text, textToSqlAnswer.answer);
 
-			// Push to data-to-text history
-			pushToDataToTextHistory(text, dataToTextAfterTag);
+		// Push to data-to-text history
+		pushToDataToTextHistory(text, dataToTextAnswer.answer);
 
-			await sendMessage(c.env, chatId, `${dataToTextAfterTag}\n\n${messageId}`);
+		await sendMessage(c.env, chatId, `${dataToTextAnswer.answer}\n\n${messageId}`);
 
-			return c.json(
-				`${(dataToTextHistory.length / 5 + 1).toFixed(0)}: ${dataToTextAfterTag}`,
-				200,
-			);
-		} else {
-			throw error;
-		}
+		return c.json(
+			`${(dataToTextHistory.length / 5 + 1).toFixed(0)}: ${dataToTextAnswer.answer}`,
+			200,
+		);
+		console.log("PASSED 6");
+		console.log("END")
 	} catch (err) {
 		console.error("Catch Err `webhookHandler.ts`: ", err);
 		return c.json("Internal Server Error.", 200);

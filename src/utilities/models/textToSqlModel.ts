@@ -8,6 +8,7 @@ async function textToSqlModel(c: any, text: string, textToSqlAnswer: null | stri
 		const llama70b = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 		const llama8b = '@cf/meta/llama-3.1-8b-instruct-fast';
 		const deepseek = '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b';
+		const gpt20b = '@cf/openai/gpt-oss-20b';
 
 		const userPrompt = errorFeedback ? errorFeedback : text;
 

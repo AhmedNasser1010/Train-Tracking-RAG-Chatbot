@@ -35,6 +35,14 @@ The Train Tracking RAG Chatbot is an AI-powered chatbot that helps users find tr
  	cloudflared tunnel --url http://localhost:8787
  	curl "https://api.telegram.org/bot{bot_token}/setWebhook?url={tunnal_link}/webhook"
  	```
+## Publish the server to public Telegram bot
+1. [Get your public Cloudflare tunnal link](https://dash.cloudflare.com/7137a27d9b2c1c699c5ff3262d7c3804/workers/services/view/telegram-tracker-bot/production/settings)
+2. [Get your Telegram bot token](https://web.telegram.org/a/#93372553)
+3. Link your Telegram bot with the Cloudflare Worker
+    ```bash
+    curl "https://api.telegram.org/bot{bot_token}/setWebhook?url={tunnal_link}/webhook"
+    ```
+    you should see `{"ok":true,"result":true,"description":"Webhook was set"}`
  
 ## Features
 1. Reply to user inquiries
