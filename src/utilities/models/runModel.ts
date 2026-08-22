@@ -22,6 +22,9 @@ async function runModel(c: any, model: string, messages: ChatMessage[]): Promise
 			messages,
 			max_tokens: 4096,
 			reasoning_effort: 'low',
+			temperature: 0.1,
+			top_p: 0.9,
+			seed: 42,
 		});
 
 		// Support both Chat Completions and Responses API response shapes.

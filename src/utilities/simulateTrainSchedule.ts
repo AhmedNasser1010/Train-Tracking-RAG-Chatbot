@@ -1,6 +1,22 @@
 import { TrainScheduleViewEntry } from "../types/TrainScheduleViewEntry";
 import translatedStationsNames from "../../translatedStationsNames.json";
 
+const stationNames = translatedStationsNames as Record<string, string>;
+
+const trainTypesAr: Record<string, string> = {
+	'Russian': 'روسي',
+	'Improved': 'محسن',
+	'AC': 'مكيفه',
+	'AC Russian': 'روسي مكيف',
+	'Sleep': 'نوم',
+	'Talgo': 'تالجو',
+};
+
+function toArabicStation(station: string | null): string | null {
+	if (!station) return null;
+	return stationNames[station] ?? station;
+}
+
 type TrainStatus = {
 	trainNumber: string;
 	trainType: string;
@@ -25,6 +41,16 @@ function parseTime(timeStr: string): number {
 	return hours * 60 + minutes;
 }
 
+function formatTimeAr(timeStr: string): string {
+	const [time, modifier] = timeStr.split(' ');
+	let [hours, minutes] = time.split(':').map(Number);
+	const suffix = modifier.toLowerCase() === 'pm' ? 'م' : 'ص';
+	if (suffix === 'ص' && hours === 12) {
+		hours = 0;
+	}
+	return `${hours}:${String(minutes).padStart(2, '0')} ${suffix}`;
+}
+
 export default function simulateTrainSchedule(currentTimeStr: string, trains: TrainScheduleViewEntry[]): TrainStatus[] {
 	const currentTime = new Date(currentTimeStr);
 	const currentMinutes = currentTime.getHours() * 60 + currentTime.getMinutes();
@@ -41,11 +67,11 @@ export default function simulateTrainSchedule(currentTimeStr: string, trains: Tr
 		const departure_at = train.arrival_time[0];
 
 		if (currentMinutes < arrivalMinutes[0]) {
-			status = 'Not Started';
+			status = 'لم تنطلق بعد';
 			currentStation = stops[0];
 			nextStation = stops[1] || null;
 		} else if (currentMinutes >= arrivalMinutes[arrivalMinutes.length - 1]) {
-			status = 'Arrived';
+			status = 'وصل';
 			previousStation = null;
 			currentStation = stops[stops.length - 1];
 		} else {
@@ -56,7 +82,7 @@ export default function simulateTrainSchedule(currentTimeStr: string, trains: Tr
 				}
 			}
 
-			status = 'In Transit';
+			status = 'في الطريق';
 			nextStation = stops[index + 1] || null;
 
 			const dwellEndTime = Math.min(arrivalMinutes[index] + 5, arrivalMinutes[index + 1]);
@@ -69,19 +95,18 @@ export default function simulateTrainSchedule(currentTimeStr: string, trains: Tr
 			}
 		}
 
+		previousStation = toArabicStation(previousStation);
+		currentStation = currentStation === 'En route' ? 'في الطريق' : toArabicStation(currentStation);
+		nextStation = toArabicStation(nextStation);
+
 		const fullRoute: string[] = stops.map((station: string, index) => {
-			const translations = translatedStationsNames as Record<string, string>;
-			if (translations[station]) {
-				const arName = translations[station];
-				return `${station} ${arName}: ${train.arrival_time[index]}`;
-			} else {
-				return `${station}: ${train.arrival_time[index]}`;
-			}
+			const name = stationNames[station] ?? station;
+			return `${name}: ${formatTimeAr(train.arrival_time[index])}`;
 		})
 
 		return {
 			trainNumber: train.train_number,
-			trainType: train.train_type,
+			trainType: trainTypesAr[train.train_type] ?? train.train_type,
 			status,
 			previousStation,
 			currentStation,
@@ -90,5 +115,11 @@ export default function simulateTrainSchedule(currentTimeStr: string, trains: Tr
 			arrival_at,
 			departure_at,
 		};
-	});
+	})
+		.sort((a, b) => parseTime(a.departure_at) - parseTime(b.departure_at))
+		.map(train => ({
+			...train,
+			arrival_at: formatTimeAr(train.arrival_at),
+			departure_at: formatTimeAr(train.departure_at),
+		}));
 }

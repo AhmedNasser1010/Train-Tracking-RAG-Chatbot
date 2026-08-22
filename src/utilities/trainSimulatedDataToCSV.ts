@@ -1,5 +1,3 @@
-import translatedStationsNames from "../../translatedStationsNames.json";
-
 export default function trainSimulatedDataToCSV(jsonData: any[]): string {
 	const csvRows = [];
 

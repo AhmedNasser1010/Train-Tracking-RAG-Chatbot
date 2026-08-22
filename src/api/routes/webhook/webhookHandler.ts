@@ -91,11 +91,17 @@ export const webhookHandler = async (c: any) => {
 
 		// Format & beautification result
 		const scheduleRows = executeResult as unknown as TrainScheduleViewEntry[];
+		const maxCsvRows = 40;
 		let formatedResult: string;
 		if (isTrainScheduleViewTable(scheduleRows)) {
 			// Trains simulation
 			const simulatedData = simulateTrainSchedule(egyptTime, scheduleRows);
-			formatedResult = trainSimulatedDataToCSV(simulatedData);
+			formatedResult = trainSimulatedDataToCSV(
+				simulatedData.slice(0, maxCsvRows),
+			);
+			if (simulatedData.length > maxCsvRows) {
+				formatedResult += `\n"ملاحظة","تم عرض أول ${maxCsvRows} قطار من إجمالي ${simulatedData.length} قطار"`;
+			}
 		} else {
 			formatedResult = JSON.stringify(executeResult);
 		}
