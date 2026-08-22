@@ -16,14 +16,16 @@ type RunModelResult = {
 	answer: string;
 };
 
-async function runModel(c: any, model: string, input: ChatMessage[]): Promise<RunModelResult> {
+async function runModel(c: any, model: string, messages: ChatMessage[]): Promise<RunModelResult> {
 	try {
-		const response = await c.env.AI.run(model, { input });
+		const response = await c.env.AI.run(model, { messages });
+
+		const rawAnswer: string = response.choices?.[0]?.message?.content ?? '';
 
 		return {
 			isError: false,
 			error: null,
-			answer: response.output[1].content[0].text,
+			answer: rawAnswer.replace(/<think>[\s\S]*?<\/think>/g, '').trim(),
 		};
 	} catch (error) {
 		return {
