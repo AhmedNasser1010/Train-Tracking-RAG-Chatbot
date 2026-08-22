@@ -1,5 +1,5 @@
-import textToSqlModel from "../../../utilities/models/gpt20bTextToSqlModel";
-import dataToTextModel from "../../../utilities/models/gpt20bDataToTextModel";
+import textToSqlModel from "../../../utilities/models/textToSqlModel";
+import dataToTextModel from "../../../utilities/models/dataToTextModel";
 import { sqlParser } from "../../../utilities/sql/sqlParser";
 import { executeSql } from "../../../utilities/sql/executeSql";
 import {
