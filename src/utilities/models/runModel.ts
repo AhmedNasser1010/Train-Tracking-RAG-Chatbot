@@ -1,8 +1,8 @@
 export const MODELS = {
 	// textToSQL: "@cf/openai/gpt-oss-20b",
 	// dataToText: "@cf/openai/gpt-oss-20b",
-	textToSQL: '@cf/zai-org/glm-4.7-flash',
-	dataToText: '@cf/zai-org/glm-4.7-flash',
+	textToSQL: '@cf/openai/gpt-oss-120b',
+	dataToText: '@cf/openai/gpt-oss-120b',
 } as const;
 
 export type ChatMessage = {
@@ -18,14 +18,33 @@ type RunModelResult = {
 
 async function runModel(c: any, model: string, messages: ChatMessage[]): Promise<RunModelResult> {
 	try {
-		const response = await c.env.AI.run(model, { messages });
+		const response: any = await c.env.AI.run(model, {
+			messages,
+			max_tokens: 4096,
+			reasoning_effort: 'low',
+		});
 
-		const rawAnswer: string = response.choices?.[0]?.message?.content ?? '';
+		// Support both Chat Completions and Responses API response shapes.
+		const rawAnswer: string = (
+			response.choices?.[0]?.message?.content ??
+			response.output_text ??
+			''
+		)
+			.replace(/<think>[\s\S]*?<\/think>/g, '')
+			.trim();
+
+		if (!rawAnswer) {
+			return {
+				isError: true,
+				error: new Error('Model returned an empty answer.'),
+				answer: '',
+			};
+		}
 
 		return {
 			isError: false,
 			error: null,
-			answer: rawAnswer.replace(/<think>[\s\S]*?<\/think>/g, '').trim(),
+			answer: rawAnswer,
 		};
 	} catch (error) {
 		return {

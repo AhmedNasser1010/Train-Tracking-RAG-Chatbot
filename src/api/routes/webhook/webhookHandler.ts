@@ -36,6 +36,8 @@ export const webhookHandler = async (c: any) => {
 		} = { valid: false };
 		let errorFeedback: string | null = null;
 		do {
+			parserResult = { valid: false };
+
 			// Text-to-SQL model
 			textToSqlAnswer = await textToSqlModel(
 				c,
@@ -58,7 +60,11 @@ export const webhookHandler = async (c: any) => {
 
 				if (!parserResult?.valid) {
 					errorFeedback = parserResult?.error ?? null;
+					console.error("Text-to-SQL validation failed:", errorFeedback);
 				}
+			} else {
+				errorFeedback = null;
+				console.error("Text-to-SQL model error:", textToSqlAnswer.error);
 			}
 
 			if (parserResult?.valid === true) {

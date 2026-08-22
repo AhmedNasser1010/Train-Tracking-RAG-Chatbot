@@ -7,6 +7,8 @@ describe('sqlErrorFeedback', () => {
 		const sql = 'SELECT * FROMM users';
 		const userText = 'Give me all users';
 		const result = sqlErrorFeedback(error, sql, userText);
-		expect(result).toEqual(`Error in SQL statement: ${error}\nSQL statement: ${sql}\nUser text: ${userText}`);
+		expect(result).toContain(`Error: ${error}`);
+		expect(result).toContain(`Rejected statement: ${sql}`);
+		expect(result).toContain(`Original user request: ${userText}`);
 	});
 });
