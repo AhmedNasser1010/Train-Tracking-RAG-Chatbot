@@ -4,7 +4,6 @@ import { getTextToSQLHistory } from "../../api/index";
 async function gpt20bTextToSqlModel(
   c: any,
   text: string,
-  textToSqlAnswer: null | string,
   errorFeedback: null | string
 ) {
   try {

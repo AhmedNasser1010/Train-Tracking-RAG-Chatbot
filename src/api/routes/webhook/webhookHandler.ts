@@ -11,35 +11,35 @@ import trainSimulatedDataToCSV from "../../../utilities/trainSimulatedDataToCSV"
 import isTrainScheduleViewTable from "../../../utilities/isTrainScheduleViewTable";
 import delay from "../../../utilities/delay";
 import sendMessage from "../../../utilities/telegram/sendMessage";
-import afterThinkTagText from "../../../utilities/afterThinkTagText";
 import simulateTrainSchedule from "../../../utilities/simulateTrainSchedule";
 import calcTime from "../../../utilities/calcTime";
+import type { TrainScheduleViewEntry } from "../../../types/TrainScheduleViewEntry";
 
 export const webhookHandler = async (c: any) => {
 	console.log("START")
 	const dataToTextHistory = getDataToTextHistory();
 	try {
 		const egyptTime: string = calcTime("+3");
-		// const egyptTime: string = "5:40 AM";
 		const update = await c.req.json();
 		const text: string = update.message.text;
 		const chatId = update.message.chat.id;
 		const messageId = update.message.message_id;
-		const chatType = update.message.chat.type;
 
-		// Faild attepts loop
-		const textToSQLMaxAttepts = 0;
+		// Failed attempts loop
+		const textToSQLMaxAttepts = 3;
 		let textToSQLAttepts = 0;
 		let textToSqlAnswer = null;
-		let textToSqlAnswerAfterTag = null;
-		let parserResult = { valid: false };
-		let errorFeedback = null;
+		let parserResult: {
+			valid: boolean;
+			isInjection?: boolean;
+			error?: string | null;
+		} = { valid: false };
+		let errorFeedback: string | null = null;
 		do {
 			// Text-to-SQL model
 			textToSqlAnswer = await textToSqlModel(
 				c,
 				text,
-				textToSqlAnswer,
 				errorFeedback,
 			);
 			console.log("PASSED 1");
@@ -57,7 +57,7 @@ export const webhookHandler = async (c: any) => {
 				}
 
 				if (!parserResult?.valid) {
-					errorFeedback = parserResult?.error;
+					errorFeedback = parserResult?.error ?? null;
 				}
 			}
 
@@ -69,15 +69,26 @@ export const webhookHandler = async (c: any) => {
 			await delay(2000);
 		} while (textToSQLAttepts <= textToSQLMaxAttepts);
 
+		// Never execute anything that failed validation.
+		if (parserResult?.valid !== true || textToSqlAnswer.isError) {
+			await sendMessage(
+				c.env,
+				chatId,
+				"عذراً، لم أتمكن من فهم طلبك أو تحويله إلى استعلام آمن. حاول صياغة سؤالك بشكل مختلف.",
+			);
+			return c.json("Failed to generate a valid SQL statement.", 200);
+		}
+
 		// Read data from database
 		const executeResult = await executeSql(c, textToSqlAnswer.answer);
 		console.log("PASSED 3");
 
 		// Format & beautification result
-		let formatedResult = executeResult;
-		if (isTrainScheduleViewTable(executeResult)) {
+		const scheduleRows = executeResult as unknown as TrainScheduleViewEntry[];
+		let formatedResult: string;
+		if (isTrainScheduleViewTable(scheduleRows)) {
 			// Trains simulation
-			const simulatedData = simulateTrainSchedule(egyptTime, executeResult);
+			const simulatedData = simulateTrainSchedule(egyptTime, scheduleRows);
 			formatedResult = trainSimulatedDataToCSV(simulatedData);
 		} else {
 			formatedResult = JSON.stringify(executeResult);
@@ -96,14 +107,23 @@ export const webhookHandler = async (c: any) => {
 				data: formatedResult,
 				egyptTime,
 			});
+			dataToTextAttepts++;
 			console.log("PASSED 5");
 			console.log('dataToTextAnswer:')
 			console.log(dataToTextAnswer)
+		} while (
+			(dataToTextAnswer === null || dataToTextAnswer.isError !== false) &&
+			dataToTextAttepts <= dataToTextMaxAttepts
+		);
 
-			if (dataToTextAnswer !== null && dataToTextAnswer.isError === false) {
-				break;
-			}
-		} while (dataToTextMaxAttepts <= dataToTextAttepts);
+		if (dataToTextAnswer === null || dataToTextAnswer.isError !== false) {
+			await sendMessage(
+				c.env,
+				chatId,
+				"عذراً، حدث خطأ أثناء تجهيز الإجابة. حاول مرة أخرى.",
+			);
+			return c.json("Failed to generate a natural language answer.", 200);
+		}
 
 		console.log(
 			"GENERATE: Answer report:\n==========\n",
@@ -117,7 +137,7 @@ export const webhookHandler = async (c: any) => {
 						...textToSqlAnswer,
 						attepts: textToSQLAttepts,
 					},
-					dataToSQL: {
+					dataToText: {
 						...dataToTextAnswer,
 						attepts: dataToTextAttepts,
 					},
@@ -129,7 +149,7 @@ export const webhookHandler = async (c: any) => {
 			}),
 			"\n==========\n",
 		);
-			
+
 		// Push to text-to-sql history
 		pushToTextToSQLHistory(text, textToSqlAnswer.answer);
 
@@ -139,11 +159,9 @@ export const webhookHandler = async (c: any) => {
 		await sendMessage(c.env, chatId, `${dataToTextAnswer.answer}\n\n${messageId}`);
 
 		return c.json(
-			`${(dataToTextHistory.length / 5 + 1).toFixed(0)}: ${dataToTextAnswer.answer}`,
+			`${Math.ceil(dataToTextHistory.length / 2)}: ${dataToTextAnswer.answer}`,
 			200,
 		);
-		console.log("PASSED 6");
-		console.log("END")
 	} catch (err) {
 		console.error("Catch Err `webhookHandler.ts`: ", err);
 		return c.json("Internal Server Error.", 200);

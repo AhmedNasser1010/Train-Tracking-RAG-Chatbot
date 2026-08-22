@@ -1,4 +1,4 @@
-import { sqlErrorFeedback } from '../../src/utilities/sqlErrorFeedback';
+import { sqlErrorFeedback } from '../../src/utilities/sql/sqlErrorFeedback';
 
 describe('sqlErrorFeedback', () => {
 	it('Should returns llm prompt describe the error', () => {
@@ -7,6 +7,6 @@ describe('sqlErrorFeedback', () => {
 		const sql = 'SELECT * FROMM users';
 		const userText = 'Give me all users';
 		const result = sqlErrorFeedback(error, sql, userText);
-		expect(result).toEqual(`Error in SQL query: ${error}\nIncorrect SQL: ${sql}\nOriginal user text: ${userText}`);
+		expect(result).toEqual(`Error in SQL statement: ${error}\nSQL statement: ${sql}\nUser text: ${userText}`);
 	});
 });
